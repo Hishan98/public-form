@@ -1,0 +1,26 @@
+.comment {
+  .txt-label {
+    height: auto !important;
+
+    h3 {
+      font-size: 16px;
+      color: var(--black-color);
+      font-weight: var(--fw-m);
+    }
+    &:focus {
+      outline: none !important;
+      border: 1px solid none;
+      box-shadow: 0 0 10px #719ece;
+    }
+  }
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 768px) {
+  .comment {
+    .txt-label {
+      h3 {
+        font-size: 13px;
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+.createPost {
+  padding-top: 2rem;
+  .postHeader {
+    display: flex;
+    padding: 0rem 1.5rem;
+    .image {
+      width: 68px;
+      height: 68px;
+      border-radius: 34px;
+      border: 3px solid #ffffff;
+      filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: 400;
+      padding-top: 1.2rem;
+      padding-left: 1rem;
+    }
+    .controllers {
+      padding-top: 0.8rem;
+      margin-left: auto;
+    }
+  }
+  .postContent {
+    .image {
+      width: 94%;
+      height: 260px;
+      border-radius: 10px;
+      margin: 1.5rem auto;
+    }
+    .postCaption {
+      display: block;
+      resize: none;
+      width: 94%;
+      min-height: 7rem;
+      font-size: 13px;
+      padding: 0.6rem 0.8rem;
+      background: var(--primary-color);
+      border: transparent solid;
+      border-radius: 10px;
+      margin: 1.3rem auto 0rem auto;
+      &:focus {
+        outline: none !important;
+        border: 1px solid none;
+        box-shadow: 0 0 10px #719ece;
+      }
+    }
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 768px) {
+  .createPost {
+    .postHeader {
+      display: block;
+      margin: auto;
+      text-align: center;
+      .image {
+        width: 90px;
+        height: 90px;
+        border-radius: 45px;
+        margin: auto;
+      }
+      .controllers {
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 992px) {
+  .createPost {
+    .postHeader {
+      display: block;
+      margin: auto;
+      text-align: center;
+      .image {
+        width: 120px;
+        height: 120px;
+        border-radius: 60px;
+        margin: auto;
+      }
+      .controllers {
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+}

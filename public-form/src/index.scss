@@ -11,6 +11,12 @@
   --light-grey-color: #c3c3c3;
   --dark-grey-color: #585858;
 
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --yellow-color: #ffa310;
+
+  --btn-yellow: #fd9e05;
+
   //font weights
   --fw-s: 400;
   --fw-m: 500;
@@ -33,15 +39,17 @@ body {
 
 //Button Css
 .btn {
-  padding: 12px 44px;
+  color: var(--white-color);
+  font-size: 10px;
+  padding: 10px 30px;
   margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  background-color: var(--primary-color);
-  border: 1px solid var(--primary-color);
-  transition: all 0.5s;
-  filter: drop-shadow(1px 2px 4px rgba(0, 0, 0, 0.25));
+  margin-right: 0rem;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+  transition: all 0.6s;
 
   &:hover {
+    color: var(--white-color);
     background-color: var(--btn-yellow);
     border-color: var(--white-color);
   }
@@ -52,11 +60,38 @@ body {
   }
 }
 
+.btn-outlined {
+  background-color: transparent;
+  color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+
+  &:hover {
+    color: var(--white-color);
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+  }
+}
+
+//posts
+.post,
+.createPost {
+  width: 50%;
+  max-width: 660px;
+  height: auto;
+  background: var(--white-color);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin: 0rem auto 3rem auto;
+  padding-top: 66px;
+  padding-bottom: 3rem;
+  position: relative;
+}
+
 //comments
 .comment {
   width: 100%;
   display: flex;
-  padding: 27px 1.5rem 15px 1.5rem;
+  padding: 1.68rem 1.5rem 0.18rem 1.5rem;
 
   .image {
     width: 55px;
@@ -65,21 +100,61 @@ body {
     border: 1px solid #ffffff;
     filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
   }
-  .txt-comment {
+  .txt-comment,
+  .txt-label {
     resize: none;
     width: 92%;
-    font-size: 15px;
-    padding: 0rem 0.8rem;
-    height: 50px;
+    font-size: 13px;
+    padding: 0.6rem 0.8rem;
     background: var(--primary-color);
     border: transparent solid;
-    border-radius: 14px;
+    border-radius: 10px;
     margin-left: 10px;
 
     &:focus {
       outline: none !important;
       border: 1px solid none;
       box-shadow: 0 0 10px #719ece;
+    }
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 768px) {
+  .post,
+  .createPost {
+    width: 85%;
+  }
+  .comment {
+    .image {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+    }
+    .txt-comment,
+    .txt-label {
+      width: 85%;
+      font-size: 10px;
+    }
+  }
+}
+
+/* Medium devices (landscape tablets, between 992px and 768px) */
+@media (min-width: 768px) and (max-width: 992px) {
+  .post,
+  .createPost {
+    width: 85%;
+  }
+  .comment {
+    .image {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+    }
+    .txt-comment,
+    .txt-label {
+      width: 85%;
+      font-size: 13px;
     }
   }
 }

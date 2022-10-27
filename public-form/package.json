@@ -14,12 +14,13 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
+    "react-expanding-textarea": "^2.3.6",
     "react-router-dom": "^6.4.2",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "sass": "^1.55.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "sass": "^1.55.0"
   },
   "scripts": {
     "start": "react-scripts start",
