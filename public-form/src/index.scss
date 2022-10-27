@@ -124,8 +124,8 @@ body {
 @media only screen and (max-width: 768px) {
   .post,
   .createPost {
-    width: 85%;
-    min-width: none;
+    width: 95%;
+    min-width: unset;
   }
   .comment {
     .image {
@@ -146,7 +146,7 @@ body {
   .post,
   .createPost {
     width: 85%;
-    min-width: none;
+    min-width: unset;
   }
   .comment {
     .image {
