@@ -3,8 +3,7 @@ import Posts from "../../components/posts/posts";
 
 const Home = () => {
   return (
-    <div>
-      Hello this is Home Page
+    <div className="container">
       <Posts />
     </div>
   );

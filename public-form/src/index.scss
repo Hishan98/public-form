@@ -1,1 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
+/* Importing React-Bootstrap */
+@import "~bootstrap/scss/bootstrap";
+
+:root {
+  --primary-color: #f3f4f8;
+  --secondary-color: #f9a826;
+  --white-color: #ffffff;
+
+  --light-grey-color: #c3c3c3;
+  --dark-grey-color: #585858;
+
+  //font weights
+  --fw-s: 400;
+  --fw-m: 500;
+  --fw-sb: 600; //semi-bold
+  --fw-b: 700; //bold
+}
+* {
+  font-family: "Poppins", sans-serif;
+}
+body {
+  background-color: var(--primary-color);
+}
+//Image Css
+.bgImage {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  margin: 0px;
+}
+
+//Button Css
+.btn {
+  padding: 12px 44px;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  transition: all 0.5s;
+  filter: drop-shadow(1px 2px 4px rgba(0, 0, 0, 0.25));
+
+  &:hover {
+    background-color: var(--btn-yellow);
+    border-color: var(--white-color);
+  }
+
+  &:active {
+    background-color: var(--btn-yellow) !important;
+    border-color: var(--btn-yellow) !important;
+  }
+}
+
+//comments
+.comment {
+  width: 100%;
+  display: flex;
+  padding: 27px 1.5rem 15px 1.5rem;
+
+  .image {
+    width: 55px;
+    height: 55px;
+    border-radius: 28px;
+    border: 1px solid #ffffff;
+    filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
+  }
+  .txt-comment {
+    resize: none;
+    width: 92%;
+    font-size: 15px;
+    padding: 0rem 0.8rem;
+    height: 50px;
+    background: var(--primary-color);
+    border: transparent solid;
+    border-radius: 14px;
+    margin-left: 10px;
+
+    &:focus {
+      outline: none !important;
+      border: 1px solid none;
+      box-shadow: 0 0 10px #719ece;
+    }
+  }
+}
