@@ -1,10 +1,14 @@
 import "./commentCard.scss";
-import person from "../../assets/images/temp_person.jpg";
+import React, { useCallback, useContext } from "react";
 
-import React, { useCallback } from "react";
+import { CommonContext } from "../../context/commonContext";
+
 import Textarea from "react-expanding-textarea";
 
 const CommentCard = () => {
+  //common context config
+  const { userData } = useContext(CommonContext);
+
   const handleChange = useCallback((e) => {
     console.log("Changed value to: ", e.target.value);
   }, []);
@@ -13,7 +17,7 @@ const CommentCard = () => {
     <div className="comment">
       <div
         className="image bgImage"
-        style={{ backgroundImage: `url('${person}')` }}
+        style={{ backgroundImage: `url('${userData.userImage}')` }}
       ></div>
 
       <Textarea

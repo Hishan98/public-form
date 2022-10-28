@@ -8,8 +8,6 @@ router.get('/user', async (req, res) => {
 
     const username = generateUsername("", 0, 15);
 
-
-
     //get random user image 
     var options = {
         uri: 'https://randomuser.me/api/',

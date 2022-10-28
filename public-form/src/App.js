@@ -1,13 +1,15 @@
 import Home from './pages/home/home';
-import UserGen from './hooks/userGen';
+import CommonContextProvider from './context/commonContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-
-  UserGen();
   return (
     <div className="App">
-      <Home />
-      <p></p>
+      <CommonContextProvider>
+        <Home />
+        <ToastContainer />
+      </CommonContextProvider>
     </div>
   );
 }
