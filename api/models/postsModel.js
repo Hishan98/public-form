@@ -1,11 +1,19 @@
 const mongoose = require('mongoose');
 
 const postsSchema = mongoose.Schema({
-    url: {
+    user_name: {
+        type: String,
+        max: 50,
+        require: true
+    },
+    user_image_url: {
+        type: String,
+        require: true
+    },
+    post_media: {
         type: String,
         default: ' ',
         max: 1024,
-        require: true
     },
     caption: {
         type: String,

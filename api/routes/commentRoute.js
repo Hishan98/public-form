@@ -59,12 +59,12 @@ router.get('/comments/:post_id', async (req, res) => {
     const comments = await commentsModel.find({ post_id: req.params.post_id });
     if (comments.length == 0) {
         res.status(200).send({
-            status: "not_found",
-            results: []
+            status: "success",
+            results: "Not found"
         })
     } else {
         res.status(200).send({
-            status: "found",
+            status: "success",
             results: comments
         })
     }
