@@ -1,20 +1,16 @@
 import "./comments.scss";
-import person from "../../assets/images/temp_person.jpg";
 
-const Comments = () => {
+const Comments = (props) => {
   return (
     <div className="comment">
       <div
         className="image bgImage"
-        style={{ backgroundImage: `url('${person}')` }}
+        style={{ backgroundImage: `url('${props.user_image}')` }}
       ></div>
 
       <div className="txt-label">
-        <h3>PinkMonkey</h3>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex aperiam,
-        tempora accusamus explicabo libero reprehenderit voluptate dolorum
-        laboriosam, mollitia ipsum, eius labore rem? A neque quas quia fugit
-        repudiandae quos!
+        <h3>{props.user_name}</h3>
+        {props.user_comment}
       </div>
     </div>
   );

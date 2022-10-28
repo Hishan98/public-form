@@ -40,8 +40,7 @@ router.post('/posts', upload.single('post_media'), async (req, res) => {
     //check uploaded file
     let filePath = null;
     if (req.file) {
-        console.log(req.file);
-        filePath = req.file.path;
+        filePath = req.file.path.replace(/\\/g, '/')
     }
 
     // check file extension
