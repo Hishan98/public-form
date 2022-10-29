@@ -38,25 +38,33 @@ const Home = () => {
   return (
     <div className="container">
       <PostCard updatePosts={updatePosts} />
-      {posts.map((element) => (
-        <Posts
-          key={element._id}
-          post_id={element._id}
-          user_name={element.user_name}
-          user_image={element.user_image_url}
-          post_media={element.post_media}
-          caption={element.caption}
-          date={element.date}
-        />
-      ))}
+      {posts
+        ? posts.map((element) => (
+            <Posts
+              key={element._id}
+              post_id={element._id}
+              user_name={element.user_name}
+              user_image={element.user_image_url}
+              post_media={element.post_media}
+              caption={element.caption}
+              date={element.date}
+            />
+          ))
+        : ""}
     </div>
   );
 };
 
 const getPosts = async (host) => {
+  let postsArr = [];
   try {
     const postData = await axios.get(host + "/api/posts");
-    return postData.data.results;
+    if (postData.data.results !== "Not found") {
+      postsArr = postData.data.results;
+    } else {
+      postsArr = null;
+    }
+    return postsArr;
   } catch (error) {
     return error;
   }

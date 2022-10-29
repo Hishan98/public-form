@@ -27,16 +27,20 @@ const CommentCard = ({ post_id, updateComments }) => {
 
       try {
         await axios.post(host + "/api/comments", commentModel).then((res) => {
-          console.log(res.message);
-
           updateComments(res.data.results);
           setCommentText("");
         });
       } catch (error) {
-        console.log("error: " + error.response.data.message);
-        toast.error(error.response.data.message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        console.log(error);
+        if (error.response) {
+          toast.error(error.response.data.message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        } else {
+          toast.error(error.response, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
       }
     }
   };

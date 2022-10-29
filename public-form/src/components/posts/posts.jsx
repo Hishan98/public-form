@@ -30,8 +30,7 @@ const Posts = (props) => {
     const getCommentsArray = async () => {
       try {
         const commentData = await getComments(host, props.post_id);
-
-        // setComments(commentData);
+        setComments(commentData);
       } catch (error) {
         toast.error(error, {
           position: toast.POSITION.TOP_RIGHT,
@@ -69,24 +68,33 @@ const Posts = (props) => {
       )}
       <hr />
       <CommentCard updateComments={updateComments} post_id={props.post_id} />
-      {comments.map((element) => (
-        <Comments
-          key={element._id}
-          comment_id={element._id}
-          user_name={element.name}
-          user_image={element.url}
-          user_comment={element.comment}
-          commented_time={timeAgo.format(new Date(element.dateTime))}
-        />
-      ))}
+      {comments
+        ? comments.map((element) => (
+            <Comments
+              key={element._id}
+              comment_id={element._id}
+              user_name={element.name}
+              user_image={element.url}
+              user_comment={element.comment}
+              commented_time={timeAgo.format(new Date(element.dateTime))}
+            />
+          ))
+        : ""}
     </div>
   );
 };
 
 const getComments = async (host, postId) => {
   try {
+    let commentArr = [];
     const commentData = await axios.get(host + "/api/comments/" + postId);
-    return commentData.data.results;
+
+    if (commentData.data.results !== "Not found") {
+      commentArr = commentData.data.results;
+    } else {
+      commentArr = null;
+    }
+    return commentArr;
   } catch (error) {
     return error;
   }

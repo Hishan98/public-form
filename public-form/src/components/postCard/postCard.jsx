@@ -1,5 +1,4 @@
 import "./postCard.scss";
-import postImg from "../../assets/images/bg.jpg";
 import axios from "axios";
 import FormData from "form-data";
 
@@ -12,7 +11,7 @@ const PostCard = ({ updatePosts }) => {
   //common context config
   const { host, userData } = useContext(CommonContext);
   const [postCaption, setPostCaption] = useState("");
-  const [postImage, setPostImage] = useState("");
+  const [postImage, setPostImage] = useState(null);
   const [displayImage, setDisplayImage] = useState("");
 
   //Text area Config
@@ -25,8 +24,8 @@ const PostCard = ({ updatePosts }) => {
   };
 
   const handleCapImage = (event) => {
-    setPostImage(event.currentTarget.files[0]);
-    const objectUrl = URL.createObjectURL(event.currentTarget.files[0]);
+    setPostImage(event.target.files[0]);
+    const objectUrl = URL.createObjectURL(event.target.files[0]);
     setDisplayImage(objectUrl);
   };
 
@@ -37,23 +36,31 @@ const PostCard = ({ updatePosts }) => {
   };
 
   const handleSubmit = async (event) => {
-    if (event.key === "Enter") {
-      let formData = new FormData();
+    let formData = new FormData();
 
-      formData.append("post_media", postImage);
-      formData.append("user_name", userData.userName);
-      formData.append("user_image_url", userData.userImage);
-      formData.append("caption", postCaption);
-
-      try {
-        await axios.post(host + "/api/posts", formData).then((res) => {
-          updatePosts(res.data.results);
-          setPostCaption("");
-          handleCapImage("");
+    formData.append("post_media", postImage);
+    formData.append("user_name", userData.userName);
+    formData.append("user_image_url", userData.userImage);
+    formData.append("caption", postCaption);
+    setDisplayImage("");
+    try {
+      await axios.post(host + "/api/posts", formData).then((res) => {
+        updatePosts(res.data.results);
+        setPostCaption("");
+        handleCapImage("");
+        // setDisplayImage("");
+        toast.success("Your post is visible Now..", {
+          position: toast.POSITION.TOP_RIGHT,
         });
-      } catch (error) {
-        console.log("error: " + error);
-        toast.error("error occurred", {
+      });
+    } catch (error) {
+      console.log(error);
+      if (error.response) {
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      } else {
+        toast.error(error.response, {
           position: toast.POSITION.TOP_RIGHT,
         });
       }
@@ -98,7 +105,6 @@ const PostCard = ({ updatePosts }) => {
           className="postCaption"
           maxLength="1000"
           onChange={handleCapChange}
-          onKeyDown={handleSubmit}
           value={postCaption}
           placeholder="Whats on your mind ?"
         />
