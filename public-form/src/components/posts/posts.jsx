@@ -18,6 +18,8 @@ const Posts = (props) => {
   const { host } = useContext(CommonContext);
   const [comments, setComments] = useState([]);
 
+  // make wrapper function to give child
+
   useEffect(() => {
     const getCommentsArray = async () => {
       try {
@@ -59,7 +61,11 @@ const Posts = (props) => {
         </div>
       )}
       <hr />
-      <CommentCard />
+      <CommentCard
+        comments={comments}
+        setComments={setComments}
+        post_id={props.post_id}
+      />
       {comments.map((element) => (
         <Comments
           key={element._id}
