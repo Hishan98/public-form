@@ -4,7 +4,7 @@ import CommentCard from "../commentCard/commentCard";
 
 import { toast } from "react-toastify";
 import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { CommonContext } from "../../context/commonContext";
 
 //Time Ago
@@ -19,12 +19,19 @@ const Posts = (props) => {
   const [comments, setComments] = useState([]);
 
   // make wrapper function to give child
+  const updateComments = useCallback(
+    (val) => {
+      setComments([...comments, val]);
+    },
+    [comments, setComments]
+  );
 
   useEffect(() => {
     const getCommentsArray = async () => {
       try {
         const commentData = await getComments(host, props.post_id);
-        setComments(commentData);
+
+        // setComments(commentData);
       } catch (error) {
         toast.error(error, {
           position: toast.POSITION.TOP_RIGHT,
@@ -61,11 +68,7 @@ const Posts = (props) => {
         </div>
       )}
       <hr />
-      <CommentCard
-        comments={comments}
-        setComments={setComments}
-        post_id={props.post_id}
-      />
+      <CommentCard updateComments={updateComments} post_id={props.post_id} />
       {comments.map((element) => (
         <Comments
           key={element._id}

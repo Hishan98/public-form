@@ -37,7 +37,7 @@ router.post('/comments', async (req, res) => {
         const newComment = await comment.save();
         res.status(200).send({
             status: "success",
-            comment_id: newComment._id
+            results: newComment
         })
     } catch (error) {
         res.status(400).send({

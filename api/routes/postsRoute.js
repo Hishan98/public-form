@@ -70,7 +70,7 @@ router.post('/posts', upload.single('post_media'), async (req, res) => {
         const newPost = await post.save();
         res.status(200).send({
             status: "success",
-            post_id: newPost._id
+            results: newPost
         })
     } catch (error) {
         res.status(400).send({

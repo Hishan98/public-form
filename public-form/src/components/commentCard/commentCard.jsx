@@ -5,55 +5,57 @@ import axios from "axios";
 import { CommonContext } from "../../context/commonContext";
 
 import Textarea from "react-expanding-textarea";
+import { toast } from "react-toastify";
 
-const CommentCard = (props, { setComments }) => {
+const CommentCard = ({ post_id, updateComments }) => {
   //common context config
   const { host, userData } = useContext(CommonContext);
-  const [comment, setComment] = useState([]);
+  const [commentText, setCommentText] = useState("");
 
-  // const testFunction = () => {};
-
-  //add more comments
   const handleChange = (event) => {
-    setComment(event.target.value);
+    setCommentText(event.target.value);
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    if (event.key === "Enter") {
+      const commentModel = {
+        post_id: post_id,
+        name: userData.userName,
+        url: userData.userImage,
+        comment: commentText,
+      };
 
-    const commentModel = {
-      post_id: props.post_id,
-      name: userData.userName,
-      url: userData.userImage,
-      comment: comment,
-    };
+      try {
+        await axios.post(host + "/api/comments", commentModel).then((res) => {
+          console.log(res.message);
 
-    try {
-      await axios.post(host + "/api/comments", commentModel).then((res) => {
-        console.log(res);
-        console.log(res.data);
-      });
-    } catch (error) {
-      console.log(error);
+          updateComments(res.data.results);
+          setCommentText("");
+        });
+      } catch (error) {
+        console.log("error: " + error.response.data.message);
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
     }
   };
 
   return (
     <div className="comment">
-      <form className="comment" onSubmit={handleSubmit}>
-        <div
-          className="image bgImage"
-          style={{ backgroundImage: `url('${userData.userImage}')` }}
-        ></div>
+      <div
+        className="image bgImage"
+        style={{ backgroundImage: `url('${userData.userImage}')` }}
+      ></div>
 
-        <Textarea
-          className="txt-comment"
-          maxLength="1000"
-          placeholder="Enter your comment here"
-          onKeyPress={handleChange}
-        />
-        <button type="submit">Puka</button>
-      </form>
+      <Textarea
+        className="txt-comment"
+        maxLength="1000"
+        placeholder="Enter your comment here"
+        onChange={handleChange}
+        onKeyDown={handleSubmit}
+        value={commentText}
+      />
     </div>
   );
 };

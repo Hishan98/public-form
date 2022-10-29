@@ -4,13 +4,21 @@ import PostCard from "../../components/postCard/postCard";
 
 import { toast } from "react-toastify";
 import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useCallback, useState, useEffect, useContext } from "react";
 import { CommonContext } from "../../context/commonContext";
 
 const Home = () => {
   //common context config
   const { host } = useContext(CommonContext);
   const [posts, setPosts] = useState([]);
+
+  // make wrapper function to give child
+  const updatePosts = useCallback(
+    (val) => {
+      setPosts([...posts, val]);
+    },
+    [posts, setPosts]
+  );
 
   useEffect(() => {
     const getPostsArray = async () => {
@@ -29,7 +37,7 @@ const Home = () => {
 
   return (
     <div className="container">
-      <PostCard />
+      <PostCard updatePosts={updatePosts} />
       {posts.map((element) => (
         <Posts
           key={element._id}
