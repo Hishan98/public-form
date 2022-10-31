@@ -30,7 +30,9 @@ const Posts = (props) => {
     const getCommentsArray = async () => {
       try {
         const commentData = await getComments(host, props.post_id);
-        setComments(commentData);
+        if (comments && comments.status === "success") {
+          setComments(commentData);
+        }
       } catch (error) {
         toast.error(error, {
           position: toast.POSITION.TOP_RIGHT,
@@ -38,7 +40,7 @@ const Posts = (props) => {
       }
     };
     getCommentsArray();
-  }, [host, props.post_id]);
+  }, [host, props.post_id, comments]);
 
   return (
     <div className="post">
@@ -68,18 +70,16 @@ const Posts = (props) => {
       )}
       <hr />
       <CommentCard updateComments={updateComments} post_id={props.post_id} />
-      {comments
-        ? comments.map((element) => (
-            <Comments
-              key={element._id}
-              comment_id={element._id}
-              user_name={element.name}
-              user_image={element.url}
-              user_comment={element.comment}
-              commented_time={timeAgo.format(new Date(element.dateTime))}
-            />
-          ))
-        : ""}
+      {comments.map((element) => (
+        <Comments
+          key={element._id}
+          comment_id={element._id}
+          user_name={element.name}
+          user_image={element.url}
+          user_comment={element.comment}
+          commented_time={timeAgo.format(new Date(element.dateTime))}
+        />
+      ))}
     </div>
   );
 };
@@ -96,6 +96,10 @@ const getComments = async (host, postId) => {
     }
     return commentArr;
   } catch (error) {
+    console.log(error);
+    toast.error(error.message, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
     return error;
   }
 };

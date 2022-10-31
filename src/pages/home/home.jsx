@@ -24,7 +24,12 @@ const Home = () => {
     const getPostsArray = async () => {
       try {
         const postData = await getPosts(host);
-        setPosts(postData);
+        if (postData && postData.status === "success") {
+          console.log(postData);
+          setPosts(postData);
+        } else {
+          console.log(postData);
+        }
       } catch (error) {
         toast.error(error, {
           position: toast.POSITION.TOP_RIGHT,
@@ -38,19 +43,17 @@ const Home = () => {
   return (
     <div className="container">
       <PostCard updatePosts={updatePosts} />
-      {posts
-        ? posts.map((element) => (
-            <Posts
-              key={element._id}
-              post_id={element._id}
-              user_name={element.user_name}
-              user_image={element.user_image_url}
-              post_media={element.post_media}
-              caption={element.caption}
-              date={element.date}
-            />
-          ))
-        : ""}
+      {posts.map((element) => (
+        <Posts
+          key={element._id}
+          post_id={element._id}
+          user_name={element.user_name}
+          user_image={element.user_image_url}
+          post_media={element.post_media}
+          caption={element.caption}
+          date={element.date}
+        />
+      ))}
     </div>
   );
 };
@@ -59,13 +62,17 @@ const getPosts = async (host) => {
   let postsArr = [];
   try {
     const postData = await axios.get(host + "/api/posts");
-    if (postData.data.results !== "Not found") {
+    if (!postData && postData.data.results !== "Not found") {
       postsArr = postData.data.results;
     } else {
-      postsArr = null;
+      postsArr = [];
     }
     return postsArr;
   } catch (error) {
+    console.log(error);
+    toast.error(error.message, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
     return error;
   }
 };
