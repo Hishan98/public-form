@@ -30,9 +30,7 @@ const Posts = (props) => {
     const getCommentsArray = async () => {
       try {
         const commentData = await getComments(host, props.post_id);
-        if (comments && comments.status === "success") {
-          setComments(commentData);
-        }
+        setComments(commentData);
       } catch (error) {
         toast.error(error, {
           position: toast.POSITION.TOP_RIGHT,
@@ -92,7 +90,7 @@ const getComments = async (host, postId) => {
     if (commentData.data.results !== "Not found") {
       commentArr = commentData.data.results;
     } else {
-      commentArr = null;
+      commentArr = [];
     }
     return commentArr;
   } catch (error) {

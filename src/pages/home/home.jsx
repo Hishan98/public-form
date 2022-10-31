@@ -25,7 +25,6 @@ const Home = () => {
       try {
         const postData = await getPosts(host);
 
-        console.log(postData);
         setPosts(postData);
       } catch (error) {
         toast.error(error, {
@@ -64,8 +63,6 @@ const getPosts = async (host) => {
       postData.data.status === "success"
     ) {
       postsArr = postData.data.results;
-    } else {
-      postsArr = [];
     }
     return postsArr;
   } catch (error) {
