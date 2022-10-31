@@ -24,12 +24,9 @@ const Home = () => {
     const getPostsArray = async () => {
       try {
         const postData = await getPosts(host);
-        if (postData && postData.status === "success") {
-          console.log(postData);
-          setPosts(postData);
-        } else {
-          console.log(postData);
-        }
+
+        console.log(postData);
+        setPosts(postData);
       } catch (error) {
         toast.error(error, {
           position: toast.POSITION.TOP_RIGHT,
@@ -62,7 +59,10 @@ const getPosts = async (host) => {
   let postsArr = [];
   try {
     const postData = await axios.get(host + "/api/posts");
-    if (!postData && postData.data.results !== "Not found") {
+    if (
+      postData.data.results !== "Not found" &&
+      postData.data.status === "success"
+    ) {
       postsArr = postData.data.results;
     } else {
       postsArr = [];
